@@ -1,60 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Price Calculator </title>
     <style>
-        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 400px; }
-        h2 { text-align: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 25px; }
-        .input-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 180px; }
-        button { background-color: #28a745; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; display: block; margin: 20px auto; font-size: 16px; font-weight: bold; }
-        #result-label { color: grey; font-size: 14px; margin-top: 20px; }
-        #final-amount { color: #28a745; font-weight: bold; font-size: 18px; margin-top: 5px; }
+        /* Basic styling */
+        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 50px; text-align: center; }
+        .container { background: white; padding: 20px; border-radius: 8px; display: inline-block; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .row { margin: 10px 0; text-align: left; }
+        input { padding: 8px; width: 200px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #result { margin-top: 20px; font-weight: bold; color: #333; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Product Price Calculator</h2>
+<div class="container">
+    <h2>Price Calculator</h2>
     
-    <div class="input-group">
-        <label>Enter Product Price:</label>
-        <input type="number" id="userPrice" placeholder="e.g. 100">
+    <div class="row">
+        <label>Price:</label><br>
+        <input type="number" id="price" placeholder="Enter amount">
     </div>
     
-    <div class="input-group">
-        <label>Enter Tax Rate:</label>
-        <input type="text" id="userTax" placeholder="e.g. 0.18">
+    <div class="row">
+        <label>Tax:</label><br>
+        <input type="number" id="tax" placeholder="Enter tax rate">
     </div>
 
-    <button onclick="calculateTotal()">Calculate Total</button>
+    <button onclick="calculate()">Calculate</button>
 
-    <div id="result-label">result</div>
-    <div id="final-amount"></div>
+    <p id="result">Total will appear here</p>
 </div>
 
 <script>
-    // 1. User-Defined Function (Namma create panna function)
-    function calculateTotal() {
-        
-        // 2. Standard Functions (Browser-la default-a irukirathu)
-        // document.getElementById() - Element-a select panna
-        // parseFloat() - Input value-va number-a matha
-        const price = parseFloat(document.getElementById('userPrice').value);
-        const tax = parseFloat(document.getElementById('userTax').value);
+    function calculate() {
+        // Get values from input fields
+        let p = parseFloat(document.getElementById('price').value);
+        let t = parseFloat(document.getElementById('tax').value);
 
-        // Validation (Standard 'isNaN' function)
-        if (isNaN(price) || isNaN(tax)) {
-            alert("Please enter valid numbers!");
+        // Simple validation check
+        if (isNaN(p) || isNaN(t)) {
+            alert("Please fill in both fields with numbers.");
             return;
         }
 
-        // Logic (Calculation)
-        const total = price * tax; 
+        // Calculation logic
+        let taxAmount = p * t;
+        let total = p + taxAmount;
 
-        // Result-a screen-la kaata standard DOM methods
-        document.getElementById('final-amount').innerText = 
-            "The final amount is: $" + total.toFixed(2);
+        // Display the result
+        document.getElementById('result').innerText = "Total Amount: $" + total.toFixed(2);
     }
 </script>
 
