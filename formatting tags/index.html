@@ -1,62 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>HTML Formatting</title>
     <style>
-        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 400px; }
-        h2 { text-align: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 25px; }
-        .input-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 180px; }
-        button { background-color: #28a745; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; display: block; margin: 20px auto; font-size: 16px; font-weight: bold; }
-        #result-label { color: grey; font-size: 14px; margin-top: 20px; }
-        #final-amount { color: #28a745; font-weight: bold; font-size: 18px; margin-top: 5px; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .tag-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+
+        h3 {
+            color: #3498db;
+            margin-top: 0;
+        }
+
+        /* Result display style */
+        .preview {
+            background: #fdfdfd;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            font-size: 1.1rem;
+        }
+
+        code {
+            color: #e83e8c;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Product Price Calculator</h2>
-    
-    <div class="input-group">
-        <label>Enter Product Price:</label>
-        <input type="number" id="userPrice" placeholder="e.g. 100">
-    </div>
-    
-    <div class="input-group">
-        <label>Enter Tax Rate:</label>
-        <input type="text" id="userTax" placeholder="e.g. 0.18">
+<div class="container">
+    <h1>HTML Formatting Tags (20 Tags)</h1>
+
+    <div class="tag-section">
+        <h3>1. Basic Emphasis Tags</h3>
+        <div class="preview">
+            <b>1. Bold Text</b> <br>
+            <strong>2. Strong Importance</strong> <br>
+            <i>3. Italic Text</i> <br>
+            <em>4. Emphasized Text</em> <br>
+            <u>5. Underlined Text</u>
+        </div>
     </div>
 
-    <button onclick="calculateTotal()">Calculate Total</button>
+    <div class="tag-section">
+        <h3>2. Text Modification</h3>
+        <div class="preview">
+            <small>6. Small Text</small> <br>
+            <p>7. <mark>Marked/Highlighted Text</mark></p>
+            <p>8. <del>Deleted Text</del> and 9. <ins>Inserted Text</ins></p>
+            <p>10. <s>Strikethrough Text</s></p>
+        </div>
+    </div>
 
-    <div id="result-label">result</div>
-    <div id="final-amount"></div>
+    <div class="tag-section">
+        <h3>3. Math & Science Tags</h3>
+        <div class="preview">
+            11. Superscript: (A + B)<sup>2</sup> <br>
+            12. Subscript: H<sub>2</sub>O <br>
+            13. Variables: <var>x</var> = <var>y</var> + 5
+        </div>
+    </div>
+
+    <div class="tag-section">
+        <h3>4. Computer Code & Keyboard</h3>
+        <div class="preview">
+            14. Code: <code>console.log("Hi");</code> <br>
+            15. Keyboard Input: Press <kbd>Ctrl</kbd> + <kbd>S</kbd> <br>
+            16. Sample Output: <samp>File not found.</samp>
+        </div>
+    </div>
+
+    <div class="tag-section">
+        <h3>5. Quotes & Others</h3>
+        <div class="preview">
+            17. Short Quote: <q>Practice makes perfect</q> <br>
+            18. Abbreviation: <abbr title="World Health Organization">WHO</abbr> <br>
+            19. Citation: <cite>HTML5 Handbook</cite> <br>
+            20. Preformatted: 
+            <pre>Line 1
+Line 2 (Preserves spaces)</pre>
+        </div>
+    </div>
+
+    <p style="text-align: center; color: gray;">Asmitha</p>
 </div>
-
-<script>
-    // 1. User-Defined Function (Namma create panna function)
-    function calculateTotal() {
-        
-        // 2. Standard Functions (Browser-la default-a irukirathu)
-        // document.getElementById() - Element-a select panna
-        // parseFloat() - Input value-va number-a matha
-        const price = parseFloat(document.getElementById('userPrice').value);
-        const tax = parseFloat(document.getElementById('userTax').value);
-
-        // Validation (Standard 'isNaN' function)
-        if (isNaN(price) || isNaN(tax)) {
-            alert("Please enter valid numbers!");
-            return;
-        }
-
-        // Logic (Calculation)
-        const total = price * tax; 
-
-        // Result-a screen-la kaata standard DOM methods
-        document.getElementById('final-amount').innerText = 
-            "The final amount is: $" + total.toFixed(2);
-    }
-</script>
 
 </body>
 </html>
