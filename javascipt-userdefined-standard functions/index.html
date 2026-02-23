@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 400px; }
+        h2 { text-align: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 25px; }
+        .input-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 180px; }
+        button { background-color: #28a745; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; display: block; margin: 20px auto; font-size: 16px; font-weight: bold; }
+        #result-label { color: grey; font-size: 14px; margin-top: 20px; }
+        #final-amount { color: #28a745; font-weight: bold; font-size: 18px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Product Price Calculator</h2>
+    
+    <div class="input-group">
+        <label>Enter Product Price:</label>
+        <input type="number" id="userPrice" placeholder="e.g. 100">
+    </div>
+    
+    <div class="input-group">
+        <label>Enter Tax Rate:</label>
+        <input type="text" id="userTax" placeholder="e.g. 0.18">
+    </div>
+
+    <button onclick="calculateTotal()">Calculate Total</button>
+
+    <div id="result-label">result</div>
+    <div id="final-amount"></div>
+</div>
+
+<script>
+    // 1. User-Defined Function (Namma create panna function)
+    function calculateTotal() {
+        
+        // 2. Standard Functions (Browser-la default-a irukirathu)
+        // document.getElementById() - Element-a select panna
+        // parseFloat() - Input value-va number-a matha
+        const price = parseFloat(document.getElementById('userPrice').value);
+        const tax = parseFloat(document.getElementById('userTax').value);
+
+        // Validation (Standard 'isNaN' function)
+        if (isNaN(price) || isNaN(tax)) {
+            alert("Please enter valid numbers!");
+            return;
+        }
+
+        // Logic (Calculation)
+        const total = price * tax; 
+
+        // Result-a screen-la kaata standard DOM methods
+        document.getElementById('final-amount').innerText = 
+            "The final amount is: $" + total.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
