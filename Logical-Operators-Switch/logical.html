@@ -1,34 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Logical Operators</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding-top: 50px; background: #fafafa; }
+    .box { border: 1px solid #ccc; padding: 20px; display: inline-block; background: white; border-radius: 5px; }
+    select, button { margin: 5px; padding: 5px; }
+  </style>
 </head>
 <body>
 
-<h2>Logical Operator using Switch</h2>
+  <div class="box">
+    <h3>Simple Logic</h3>
+    
+    <select id="a">
+      <option value="1">True</option>
+      <option value="0">False</option>
+    </select>
 
-<script>
-    var a = true;
-    var b = false;
-    var choice = 1; // Change 1,2,3 to test
+    <select id="op">
+      <option value="&&">AND</option>
+      <option value="||">OR</option>
+      <option value="!">NOT (A)</option>
+    </select>
 
-    switch(choice) {
-        case 1:
-            console.log("AND Operator:", a && b);
-            break;
+    <select id="b">
+      <option value="1">True</option>
+      <option value="0">False</option>
+    </select>
 
-        case 2:
-            console.log("OR Operator:", a || b);
-            break;
+    <button onclick="check()">Go</button>
+    <p id="out">Result: --</p>
+  </div>
 
-        case 3:
-            console.log("NOT Operator:", !a);
-            break;
+  <script>
+    function check() {
+      let a = Number(document.getElementById('a').value);
+      let b = Number(document.getElementById('b').value);
+      let op = document.getElementById('op').value;
+      let res;
 
-        default:
-            console.log("Invalid Choice");
+      if (op === '&&') res = a && b;
+      else if (op === '||') res = a || b;
+      else res = !a;
+
+      document.getElementById('out').innerText = "Result: " + Boolean(res);
     }
-</script>
+  </script>
 
 </body>
 </html>
+
