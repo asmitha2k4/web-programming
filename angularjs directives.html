@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Directives Lab</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --primary: #4a90e2;
+            --text: #2d3436;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+        }
+
+        header h1 {
+            color: #2d3436;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .frame-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease;
+            overflow: hidden;
+        }
+
+        .frame-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .frame-header {
+            background: #f1f5f9;
+            padding: 15px 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e2e8f0;
+            color: var(--primary);
+        }
+
+        iframe {
+            width: 100%;
+            height: 250px;
+            border: none;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AngularJS Directives</h1>
+    <p>A DOM manipulation.</p>
+</header>
+
+<div class="main-grid">
+    <!-- Frame 1: ng-show -->
+    <div class="frame-card">
+        <div class="frame-header">1. ng-show / Structural</div>
+        <iframe srcdoc='
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+            <div ng-app="">
+                <label><input type="checkbox" ng-model="visible"> Show Message</label>
+                <div ng-show="visible" style="background:#ff9f43; color:white; padding:15px; margin-top:10px; border-radius:8px;">
+                    ✨ Hi I am Asmitha!
+                </div>
+            </div>
+        '></iframe>
+    </div>
+
+    <!-- Frame 2: ng-repeat (FIXED QUOTES) -->
+    <div class="frame-card">
+        <div class="frame-header">2. ng-repeat / Iteration</div>
+        <iframe srcdoc='
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+            <div ng-app="" ng-init="subjects=[&apos;HTML5&apos;, &apos;CSS3&apos;, &apos;AngularJS&apos;, &apos;TypeScript&apos;]">
+                <strong>Curriculum:</strong>
+                <ul><li ng-repeat="s in subjects" style="background:#f0f3f7; padding:8px; margin:5px 0; border-left:4px solid #4a90e2;">{{ s }}</li></ul>
+            </div>
+        '></iframe>
+    </div>
+
+    <!-- Frame 3: ng-model -->
+    <div class="frame-card">
+        <div class="frame-header">3. ng-model / Binding</div>
+        <iframe srcdoc='
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+            <div ng-app="">
+                <input type="text" ng-model="name" placeholder="Name..." style="width:90%; padding:10px;">
+                <h2 style="color:#10ac84;">Welcome, {{ name || "Guest" }}!</h2>
+            </div>
+        '></iframe>
+    </div>
+
+    <!-- Frame 4: ng-style (FIXED STYLE OBJECT) -->
+    <div class="frame-card">
+        <div class="frame-header">4. ng-style / Dynamic Styling</div>
+        <iframe srcdoc='
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+            <div ng-app="">
+                <input type="text" ng-model="myColor" placeholder="e.g. Red or #ee5253" style="width:80%; padding:8px;">
+                <div ng-style="{ backgroundColor: myColor }" style="margin-top:15px; height:60px; display:flex; align-items:center; justify-content:center; border:2px dashed #ccc; color:white; font-weight:bold; background-color:gray;">
+                    Color Preview
+                </div>
+            </div>
+        '></iframe>
+    </div>
+</div>
+
+<footer>
+    - done by Asmitha
+</footer>
+
+</body>
+</html>
