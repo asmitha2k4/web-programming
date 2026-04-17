@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Gradebook</title>
+    <script src="https://googleapis.com"></script>
+    <style>
+        body { font-family: Arial; background: #f4f7f6; padding: 20px; }
+        .table-container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background: #3498db; color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+    </style>
+</head>
+<body ng-app="filterApp" ng-controller="gradeController">
+    <div class="table-container">
+        <h2>Class Performance Report</h2>
+        <p>Total Students: {{ students.length }}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Fees</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="s in students | orderBy:'-score'">
+                    <td>{{ s.name | uppercase }}</td>
+                    <td>{{ s.city | lowercase }}</td>
+                    <td>{{ s.fees | currency }}</td>
+                    <td>{{ s.score }}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var app = angular.module('filterApp', []);
+        app.controller('gradeController', function($scope) {
+            $scope.students = [
+                { name: 'AAAA', city: 'TVL', fees: 1250, score: 85 },
+                { name: 'BBBB', city: 'CHENNAI', fees: 1400.5, score: 92 },
+                { name: 'CCCC', city: 'COVAI', fees: 1100, score: 78 },
+                { name: 'DDDD', city: 'MADURAI', fees: 1320, score: 88 }
+            ];
+        });
+    </script>
+</body>
+</html>
