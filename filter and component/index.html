@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="customApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Efficient Angular Assignment</title>
+    <!-- Online CDN link use pannunga, appo dhaan work aagum -->
+    <script src="https://googleapis.com"></script>
+    
+    <style>
+        body { 
+            font-family: 'Verdana', sans-serif; 
+            background: #eceff1; 
+            padding: 40px; 
+        }
+        .container { 
+            max-width: 500px; 
+            margin: auto; 
+            text-align: center; 
+        }
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 8px solid #673ab7;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .profile-card h2 { 
+            margin: 10px 0; 
+            color: #673ab7; 
+        }
+        .id-text { 
+            color: #7f8c8d; 
+            font-family: monospace; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body ng-controller="MainController as main">
+
+    <div class="container">
+        <h1>Member Portal</h1>
+
+        <!-- Custom Component with One-Time Binding -->
+        <user-profile-card user-data="::main.member"></user-profile-card>
+    </div>
+
+    <script>
+        var app = angular.module('customApp', []);
+
+        // 1. CUSTOM FILTER: maskId
+        app.filter('maskId', function() {
+            return function(input) {
+                if (!input || input.length <= 4) return input;
+                const visible = input.slice(-4);
+                const masked = '*'.repeat(input.length - 4);
+                return masked + visible;
+            };
+        });
+
+        // 2. CUSTOM COMPONENT: userProfileCard
+        app.component('userProfileCard', {
+            bindings: {
+                userData: '<'
+            },
+            controller: function() {
+                this.$onInit = function() {
+                    console.log("Component initialized with:", this.userData);
+                };
+            },
+            template: `
+                <div class="profile-card">
+                    <p style="text-transform: uppercase; font-size: 11px; color: #999; margin:0;">Verified Member</p>
+                    <h2>{{ ::$ctrl.userData.name }}</h2>
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+                    <p>Secret ID: <span class="id-text">{{ ::$ctrl.userData.secretID | maskId }}</span></p>
+                    <p>Location: {{ ::$ctrl.userData.city }}</p>
+                </div>
+            `
+        });
+
+        // Main Controller
+        app.controller('MainController', function() {
+            this.member = {
+                name: "Asmitha",
+                secretID: "EMP99228833",
+                city: "Mumbai"
+            };
+        });
+    </script>
+
+</body>
+</html>
