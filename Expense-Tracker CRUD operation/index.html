@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Tracker - MongoDB</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background-color: #f4f7f6; }
+        .form-container { 
+            max-width: 450px; padding: 25px; border-radius: 12px;
+            background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input, select { 
+            width: 100%; padding: 10px; margin: 5px 0 15px; 
+            border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;
+        }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+        button { 
+            flex: 1; padding: 12px; cursor: pointer; border-radius: 6px;
+            border: none; background-color: #28a745; color: white; font-weight: bold;
+        }
+        button:hover { background-color: #218838; }
+        #display { 
+            margin-top: 25px; padding: 20px; background: white; 
+            border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .expense-item { border-bottom: 1px solid #eee; padding: 10px 0; }
+        .total-box { font-size: 1.2rem; color: #d9534f; margin-bottom: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>💰 Personal Expense Tracker</h2>
+    
+    <div class="form-container">
+        <label>Expense Name:</label>
+        <input type="text" id="itemName" placeholder="e.g. Lunch, Petrol">
+        
+        <label>Amount (₹):</label>
+        <input type="number" id="amount" placeholder="0.00">
+
+        <label>Category:</label>
+        <select id="category">
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Bills">Bills</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Others">Others</option>
+        </select>
+
+        <label>Date:</label>
+        <input type="date" id="expDate">
+
+        <div class="btn-group">
+            <button onclick="addExpense()">Add Expense</button>
+            <button onclick="viewAll()" style="background-color: #007bff;">View History</button>
+            <button onclick="deleteExpense()" style="background-color: #dc3545;">Delete by Name</button>
+        </div>
+    </div>
+
+    <h3>Expense History:</h3>
+    <div id="display">No records yet...</div>
+
+    <script>
+        const API_URL = "http://localhost:3000";
+
+        async function addExpense() {
+            const data = {
+                itemName: document.getElementById('itemName').value,
+                amount: parseFloat(document.getElementById('amount').value),
+                category: document.getElementById('category').value,
+                date: document.getElementById('expDate').value
+            };
+            if(!data.itemName || !data.amount) return alert("Please fill name and amount");
+
+            await fetch(API_URL + "/add", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            alert("Expense Added!");
+            viewAll();
+        }
+
+        async function viewAll() {
+            const res = await fetch(API_URL + "/list");
+            const data = await res.json();
+            
+            let total = 0;
+            let html = "";
+            data.forEach(ex => {
+                total += ex.amount;
+                html += `<div class="expense-item">
+                    <strong>${ex.itemName}</strong> - ₹${ex.amount} 
+                    <br><small>${ex.category} | ${ex.date}</small>
+                </div>`;
+            });
+            
+            document.getElementById('display').innerHTML = 
+                `<div class="total-box">Total Spending: ₹${total}</div>` + html;
+        }
+
+        async function deleteExpense() {
+            const name = document.getElementById('itemName').value;
+            if (!name) return alert("Enter expense name to delete");
+            await fetch(API_URL + "/remove/" + name, { method: 'DELETE' });
+            viewAll();
+        }
+    </script>
+</body>
+</html>
+
+
+
